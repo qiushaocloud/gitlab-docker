@@ -1,14 +1,16 @@
 version: "3"
 services:
-  qiushaocloud-gitlab-server:
+  qiushaocloud-gitlab-ce-server:
     image: gitlab/gitlab-ce
-    container_name: qiushaocloud-gitlab-server
-    hostname: qiushaocloud-gitlab-server
+    container_name: qiushaocloud-gitlab-ce-server
+    hostname: qiushaocloud-gitlab-ce-server
     privileged: true
     ports:
       - '$GITLAB_SERVER_WEB_PORT:$SLB_NGINX_LISTEN_PORT'
       - '$GITLAB_SERVER_SSH_PORT:22'
     volumes:
+      - '$GITLAB_VOLUMES_CONFIG/config:/etc/gitlab'
+      # - '$GITLAB_VOLUMES_LOGS/logs:/var/log/gitlab'
       - '$GITLAB_VOLUMES_DATA:/var/opt/gitlab'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
@@ -17,7 +19,7 @@ services:
         gitlab_rails['gitlab_shell_ssh_port'] = $GITLAB_RAILS_GITLAB_SHELL_SSH_PORT
         gitlab_rails['initial_root_password'] = '$GITLAB_RAIL_INITIAL_ROOT_PASSWORD'
         nginx['enable'] = true
-        nginx['listen_port'] = $SLB_NGINX_LISTEN_PORT
+        nginx['listen_port'] = $NGINX_LISTEN_PORT
         nginx['listen_https'] = false
         nginx['proxy_set_headers'] = {
           "Host" => "$$http_host",
@@ -25,3 +27,19 @@ services:
           "X-Forwarded-For" => "$$proxy_add_x_forwarded_for",
           "X-Forwarded-Proto" => "http"
         }
+    networks:
+      - gitlab-network
+
+  qiushaocloud-gitlab-runner-server:
+    image: gitlab/gitlab-runner
+    container_name: qiushaocloud-gitlab-runner-server
+    hostname: qiushaocloud-gitlab-runner-server
+    privileged: true
+    depends_on:
+      - qiushaocloud-gitlab-ce-server
+    networks:
+      - gitlab-network
+
+
+networks:
+  gitlab-network:
