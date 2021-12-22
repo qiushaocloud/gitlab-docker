@@ -7,7 +7,7 @@ This is a gitlab docker, please use docker-compose to run, configure according t
 
 1. Configure .env
 2. Run ./run-docker.sh
-3. View logs: docker logs qiushaocloud-gitlab-server
+3. View logs: docker logs qiushaocloud-gitlab-ce-server
 
 #### Participate in Contribution
 

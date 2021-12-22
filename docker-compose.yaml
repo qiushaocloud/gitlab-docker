@@ -5,12 +5,13 @@ services:
     container_name: qiushaocloud-gitlab-ce-server
     hostname: qiushaocloud-gitlab-ce-server
     privileged: true
+    restart: always
     ports:
-      - '$GITLAB_SERVER_WEB_PORT:$SLB_NGINX_LISTEN_PORT'
+      - '$GITLAB_SERVER_WEB_PORT:$NGINX_LISTEN_PORT'
       - '$GITLAB_SERVER_SSH_PORT:22'
     volumes:
-      - '$GITLAB_VOLUMES_CONFIG/config:/etc/gitlab'
-      # - '$GITLAB_VOLUMES_LOGS/logs:/var/log/gitlab'
+      - '$GITLAB_VOLUMES_CONFIG:/etc/gitlab'
+      #- '$GITLAB_VOLUMES_LOGS:/var/log/gitlab'
       - '$GITLAB_VOLUMES_DATA:/var/opt/gitlab'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
@@ -35,8 +36,12 @@ services:
     container_name: qiushaocloud-gitlab-runner-server
     hostname: qiushaocloud-gitlab-runner-server
     privileged: true
+    restart: always
     depends_on:
       - qiushaocloud-gitlab-ce-server
+    volumes:
+    - $GITLAB_VOLUMES_RUNNER_CONFIG:/etc/gitlab-runner
+    - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - gitlab-network
 

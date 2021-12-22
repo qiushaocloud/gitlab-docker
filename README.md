@@ -7,7 +7,7 @@
 
 1.  配置 .env
 2.  运行 ./run-docker.sh
-3.  查看日志: docker logs qiushaocloud-gitlab-server
+3.  查看日志: docker logs qiushaocloud-gitlab-ce-server
 
 #### 参与贡献
 
