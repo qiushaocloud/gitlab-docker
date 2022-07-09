@@ -37,7 +37,7 @@ check_interval = 0
 
 [[runners]]
   name = "qiushaocloud-runner"
-  url = "https://www.qiushaocloud.top:61124"
+  url = "https://www.qiushaocloud.top:61024"
   token = "xxxxxxx"
   executor = "docker"
   [runners.custom_build_dir]
