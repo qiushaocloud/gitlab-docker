@@ -9,7 +9,7 @@ GITLAB_VOLUMES_RUNNER_CONFIG=`grep GITLAB_VOLUMES_RUNNER_CONFIG $CURR_DIR/.env|g
 if [ ! -f "$GITLAB_VOLUMES_RUNNER_CONFIG/config.toml" ];then
   echo "file $GITLAB_VOLUMES_RUNNER_CONFIG/config.toml is not exist, copy $CURR_DIR/test-volumes/runner-config/config.toml to $GITLAB_VOLUMES_RUNNER_CONFIG/config.toml"
   mkdir -p $GITLAB_VOLUMES_RUNNER_CONFIG
-  copy $CURR_DIR/test-volumes/runner-config/config.toml $GITLAB_VOLUMES_RUNNER_CONFIG/config.toml
+  cp $CURR_DIR/test-volumes/runner-config/config.toml $GITLAB_VOLUMES_RUNNER_CONFIG/config.toml
 fi
 
 docker-compose up -d
