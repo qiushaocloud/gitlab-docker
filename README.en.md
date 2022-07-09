@@ -1,4 +1,4 @@
-# qiushaocloud gitlab-docker source code, and Docker install Gitlab and Gitlab-Runner
+# gitlab-docker source code sharing (qiushaocloud)
 
 #### introduce
 This is a gitlab docker , please use docker-compose to run it and configure it according to your own needs. The configuration information is configured in the .env file
@@ -20,10 +20,13 @@ This is a gitlab docker , please use docker-compose to run it and configure it a
 5. View logs: docker logs qiushaocloud-gitlab-ce-server
 
 
+#### Gitlab is very memory-intensive. If your machine configuration is not too high, you can use docker-compose-simple.yaml to reduce some unnecessary services to run.
+* Replace the yaml file: `mv docker-compose-simple.yaml docker-compose.yaml`
+* For details, please refer to: [GitLab 14 Lightweight Running Solution](https://www.qiushaocloud.top/2022/07/09/zhuan-zai-gitlab-simple-run.html)
+
 
 #### Project configuration Runner please refer to
-
-Address: [https://www.qiushaocloud.top/2022/07/09/zhuan-zai-gitlab-and-gitlab-runner-cicd.html](https://www.qiushaocloud.top/2022/07/ 09/zhuan-zai-gitlab-and-gitlab-runner-cicd.html)
+Address: [Docker installs Gitlab and Gitlab-Runner and implements CICD of the project](https://www.qiushaocloud.top/2022/07/09/zhuan-zai-gitlab-and-gitlab-runner-cicd.html)
 
 
 

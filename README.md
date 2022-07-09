@@ -1,4 +1,4 @@
-# qiushaocloud gitlab-docker 源码，以及 Docker 安装 Gitlab 和 Gitlab-Runner
+# gitlab-docker 源码分享(qiushaocloud)
 
 #### 介绍
 这是一个 gitlab docker ，请使用 docker-compose 跑起来，根据自己的需求进行配置，配置信息在 .env 文件配置
@@ -20,10 +20,13 @@
 5.  查看日志: docker logs qiushaocloud-gitlab-ce-server
 
 
+#### Gitlab 非常耗费内存，如果您的机器配置不太高，可以使用 docker-compose-simple.yaml 减少一些不必要的服务来运行哦
+* 替换 yaml 文件：`mv docker-compose-simple.yaml docker-compose.yaml`
+* 详情请参考：[GitLab 14 轻量化运行方案](https://www.qiushaocloud.top/2022/07/09/zhuan-zai-gitlab-simple-run.html)
+
 
 #### 项目配置 Runner 请参考
-
-地址：[https://www.qiushaocloud.top/2022/07/09/zhuan-zai-gitlab-and-gitlab-runner-cicd.html](https://www.qiushaocloud.top/2022/07/09/zhuan-zai-gitlab-and-gitlab-runner-cicd.html)
+地址：[Docker 安装 Gitlab 和 Gitlab-Runner 并实现项目的 CICD](https://www.qiushaocloud.top/2022/07/09/zhuan-zai-gitlab-and-gitlab-runner-cicd.html)
 
 
 
