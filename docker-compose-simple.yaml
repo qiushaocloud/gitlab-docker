@@ -1,0 +1,112 @@
+version: "3"
+services:
+  qiushaocloud-gitlab-ce-server:
+    image: gitlab/gitlab-ce
+    container_name: qiushaocloud-gitlab-ce-server
+    hostname: qiushaocloud-gitlab-ce-server
+    privileged: true
+    restart: always
+    ports:
+      - '$GITLAB_SERVER_WEB_PORT:$NGINX_LISTEN_PORT'
+      - '$GITLAB_SERVER_SSH_PORT:22'
+    volumes:
+      - '$GITLAB_VOLUMES_CONFIG:/etc/gitlab'
+      #- '$GITLAB_VOLUMES_LOGS:/var/log/gitlab'
+      - '$GITLAB_VOLUMES_DATA:/var/opt/gitlab'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url '$EXTERNAL_URL'
+        gitlab_rails['time_zone'] = 'Asia/Shanghai'
+        gitlab_rails['gitlab_ssh_host'] = '$GITLAB_RAILS_GITLAB_SSH_HOST'
+        gitlab_rails['gitlab_shell_ssh_port'] = $GITLAB_RAILS_GITLAB_SHELL_SSH_PORT
+        gitlab_rails['initial_root_password'] = '$GITLAB_RAIL_INITIAL_ROOT_PASSWORD'
+        nginx['enable'] = true
+        nginx['listen_port'] = $NGINX_LISTEN_PORT
+        nginx['listen_https'] = false
+        nginx['proxy_set_headers'] = {
+          "Host" => "$$http_host",
+          "X-Real-IP" => "$$remote_addr",
+          "X-Forwarded-For" => "$$proxy_add_x_forwarded_for",
+          "X-Forwarded-Proto" => "http"
+        }
+        
+        # 关闭电子邮件相关功能
+        gitlab_rails['smtp_enable'] = false
+        gitlab_rails['gitlab_email_enabled'] = false
+        gitlab_rails['incoming_email_enabled'] = false
+
+        # Terraform
+        gitlab_rails['terraform_state_enabled'] = false
+
+        # Usage Statistics
+        gitlab_rails['usage_ping_enabled'] = false
+        gitlab_rails['sentry_enabled'] = false
+        grafana['reporting_enabled'] = false
+
+        # 关闭容器仓库功能
+        gitlab_rails['gitlab_default_projects_features_container_registry'] = false
+        gitlab_rails['registry_enabled'] = false
+        registry['enable'] = false
+        registry_nginx['enable'] = false
+
+        # 包仓库
+        gitlab_rails['packages_enabled'] = false
+        gitlab_rails['dependency_proxy_enabled'] = false
+
+        # GitLab KAS
+        gitlab_kas['enable'] = false
+        gitlab_rails['gitlab_kas_enabled'] = false
+
+        # Mattermost
+        mattermost['enable'] = false
+        mattermost_nginx['enable'] = false
+
+        # Kerberos
+        gitlab_rails['kerberos_enabled'] = false
+        sentinel['enable'] = false
+
+        # GitLab Pages
+        gitlab_pages['enable'] = false
+        pages_nginx['enable'] = false
+
+        # 禁用 PUMA 集群模式
+        puma['worker_processes'] = 0
+        puma['min_threads'] = 1
+        puma['max_threads'] = 2
+
+        # 降低后台守护进程并发数
+        sidekiq['max_concurrency'] = 5
+
+        gitlab_ci['gitlab_ci_all_broken_builds'] = false
+        gitlab_ci['gitlab_ci_add_pusher'] = false
+
+        # 关闭监控
+        prometheus_monitoring['enable'] = false
+        alertmanager['enable'] = false
+        node_exporter['enable'] = false
+        redis_exporter['enable'] = false
+        postgres_exporter['enable'] = false
+        pgbouncer_exporter['enable'] = false
+        gitlab_exporter['enable'] = false
+        grafana['enable'] = false
+        sidekiq['metrics_enabled'] = false  
+    networks:
+      - gitlab-network
+
+  qiushaocloud-gitlab-runner-server:
+    image: gitlab/gitlab-runner
+    container_name: qiushaocloud-gitlab-runner-server
+    hostname: qiushaocloud-gitlab-runner-server
+    privileged: true
+    restart: always
+    depends_on:
+      - qiushaocloud-gitlab-ce-server
+    volumes:
+    - $GITLAB_VOLUMES_RUNNER_CONFIG:/etc/gitlab-runner
+    - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - gitlab-network
+
+
+networks:
+  gitlab-network:

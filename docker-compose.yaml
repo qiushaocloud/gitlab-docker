@@ -16,6 +16,7 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url '$EXTERNAL_URL'
+        gitlab_rails['time_zone'] = 'Asia/Shanghai'
         gitlab_rails['gitlab_ssh_host'] = '$GITLAB_RAILS_GITLAB_SSH_HOST'
         gitlab_rails['gitlab_shell_ssh_port'] = $GITLAB_RAILS_GITLAB_SHELL_SSH_PORT
         gitlab_rails['initial_root_password'] = '$GITLAB_RAIL_INITIAL_ROOT_PASSWORD'
