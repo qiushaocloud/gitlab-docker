@@ -14,7 +14,7 @@ This is a gitlab docker , please use docker-compose to run it and configure it a
 #### Instructions for use
 
 1. Execute the command to grant permission to execute the script: `sed -i -e 's/\r$//' *.sh && chmod -R 755 *.sh`
-2. Execute `copy env.tpl .env` and configure .env
+2. Execute `cp env.tpl .env` and configure .env
 3. According to the content filled in the .env file GITLAB_VOLUMES_RUNNER_CONFIG, copy test-volumes/runner-config/config.toml to $GITLAB_VOLUMES_RUNNER_CONFIG, and configure config.toml according to your needs
 4. Run ./run-docker.sh [Note: The lower version of docker-compose cannot recognize .env and needs to be upgraded. The version used by the author is: 1.29.2]
 5. View logs: docker logs qiushaocloud-gitlab-ce-server

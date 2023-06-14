@@ -14,7 +14,7 @@
 #### 使用说明
 
 1.  执行命令授予执行脚本权限：`sed -i -e 's/\r$//' *.sh && chmod -R 755 *.sh`
-2.  执行 `copy env.tpl .env`，并且配置 .env
+2.  执行 `cp env.tpl .env`，并且配置 .env
 3.  根据 .env 文件 GITLAB_VOLUMES_RUNNER_CONFIG 所填写内容，将 test-volumes/runner-config/config.toml 拷贝到 $GITLAB_VOLUMES_RUNNER_CONFIG 处，被根据自己的需要配置 config.toml
 4.  运行 ./run-docker.sh 【注：docker-compose 低版本识别不了 .env，需要进行升级，作者用的版本是: 1.29.2】
 5.  查看日志: docker logs qiushaocloud-gitlab-ce-server
