@@ -1,7 +1,7 @@
 version: "3"
 services:
   qiushaocloud-gitlab-ce-server:
-    image: gitlab/gitlab-ce
+    image: gitlab/gitlab-ce # 如果是 ARM 架构，这里用 yrzr/gitlab-ce-arm64v8
     container_name: qiushaocloud-gitlab-ce-server
     hostname: qiushaocloud-gitlab-ce-server
     privileged: true
