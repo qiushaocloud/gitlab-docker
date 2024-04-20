@@ -13,7 +13,7 @@ EXTERNAL_URL = 'https://youdomainname:25443' # 作者此处配置为作者的git
 # gitlab_rails 配置
 GITLAB_RAILS_GITLAB_SSH_HOST = 'youdomainname' # 作者此处配置为作者的域名:www.qiushaocloud.top
 GITLAB_RAILS_GITLAB_SHELL_SSH_PORT = 2522 # 作者此处在其它机器做了端口映射，此处作者配置为:61023 (www.qiushaocloud.top 下映射的 61023 转发到 2522)
-GITLAB_RAIL_INITIAL_ROOT_PASSWORD = 'YOU_ROOT_PASSWD'
+GITLAB_RAIL_INITIAL_ROOT_PASSWORD = 'YOU_ROOT_PASSWD_123' # 密码要求：大小写字母、数字
 
 # gitlab nginx配置
 NGINX_LISTEN_PORT = 80
