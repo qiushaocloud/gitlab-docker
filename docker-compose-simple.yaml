@@ -41,7 +41,7 @@ services:
         # Usage Statistics
         gitlab_rails['usage_ping_enabled'] = false
         gitlab_rails['sentry_enabled'] = false
-        grafana['reporting_enabled'] = false
+        #grafana['reporting_enabled'] = false  # 这里可以试着放开注释，如果运行异常再注释
 
         # 关闭容器仓库功能
         gitlab_rails['gitlab_default_projects_features_container_registry'] = false
@@ -88,7 +88,7 @@ services:
         postgres_exporter['enable'] = false
         pgbouncer_exporter['enable'] = false
         gitlab_exporter['enable'] = false
-        grafana['enable'] = false
+        #grafana['enable'] = false # 这里可以试着放开注释，如果运行异常再注释
         sidekiq['metrics_enabled'] = false  
     networks:
       - gitlab-network
