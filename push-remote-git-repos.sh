@@ -35,8 +35,8 @@ git push
 # git push
 
 # 推送到自建的 gitlab
-echo "推送到自建的 gitlab: ssh://git@gitlab.qiushaocloud.top:61023/qiushaocloud/$gitName"
-git remote set-url origin ssh://git@gitlab.qiushaocloud.top:61023/qiushaocloud/$gitName
+echo "推送到自建的 gitlab: ssh://git@gitlab.qiushaocloud.top:61122/qiushaocloud/$gitName"
+git remote set-url origin ssh://git@gitlab.qiushaocloud.top:61122/qiushaocloud/$gitName
 git push
 
 echo "mv config"
