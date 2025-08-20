@@ -74,8 +74,9 @@ services:
         puma['min_threads'] = 1
         puma['max_threads'] = 2
 
-        # 降低后台守护进程并发数
-        sidekiq['max_concurrency'] = 3
+        # 降低后台守护进程并发数，超过 16 版本不能使用 max_concurrency 而是使用 concurrency
+        sidekiq['concurrency'] = 3
+        #sidekiq['max_concurrency'] = 3
 
         gitlab_ci['gitlab_ci_all_broken_builds'] = false
         gitlab_ci['gitlab_ci_add_pusher'] = false
